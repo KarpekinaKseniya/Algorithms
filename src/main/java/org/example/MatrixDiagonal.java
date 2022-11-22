@@ -7,7 +7,7 @@ secondary diagonal that are not part of the primary diagonal.
  */
 public class MatrixDiagonal {
 
-    public int diagonalSum(int[][] matrix) {
+    public int diagonalSum(final int[][] matrix) {
         int sum = 0;
         if (!isValidSquareMatrix(matrix)) {
             throw new IllegalArgumentException("Input matrix is not valid");
@@ -23,7 +23,7 @@ public class MatrixDiagonal {
         return sum;
     }
 
-    private boolean isValidSquareMatrix(int[][] matrix) {
+    private boolean isValidSquareMatrix(final int[][] matrix) {
         final int rows = matrix.length;
         for (int[] arr : matrix) {
             if (rows != arr.length) {
