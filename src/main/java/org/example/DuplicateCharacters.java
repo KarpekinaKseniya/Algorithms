@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /*
     Find duplicate characters in a String
 */
-public class DuplicateCharacters {
+class DuplicateCharacters {
 
     private static final int ONE_VALUE = 1;
 

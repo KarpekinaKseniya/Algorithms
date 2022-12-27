@@ -6,7 +6,7 @@ maintaining the relative order of the non-zero elements.
 
 Note that you must do this in-place without making a copy of the array.
  */
-public class MoveZeroes {
+class MoveZeroes {
 
     public void moveZeroes(final int[] nums) {
         int len = nums.length;
