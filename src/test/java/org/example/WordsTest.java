@@ -22,7 +22,7 @@ class WordsTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"USA:true", "FlAg:false", "boring:true", "g:true", "Google:true"}, delimiter = ':')
+    @CsvSource(value = {"USA:true", "FlAg:false", "boring:true", "g:true", "Google:true", "fLaG:false"}, delimiter = ':')
     void shouldDetectCapitalUse(final String word, final boolean expected) {
         assertThat(words.detectCapitalUse(word), is(expected));
     }
