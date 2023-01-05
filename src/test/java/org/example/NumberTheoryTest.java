@@ -31,6 +31,12 @@ class NumberTheoryTest {
         assertThat(numberTheory.commonFactors(a, b), is(expected));
     }
 
+    @ParameterizedTest
+    @CsvSource(value = { "7:1", "121:2", "1248:4" }, delimiter = ':')
+    void shouldCountDigits(final int number, final int count) {
+        assertThat(numberTheory.countDigits(number), is(count));
+    }
+
     private static Stream<Arguments> provideABNumsAndExpected() {
         //@formatter:off
         return Stream.of(

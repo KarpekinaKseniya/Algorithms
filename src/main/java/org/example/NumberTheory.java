@@ -43,4 +43,19 @@ public class NumberTheory {
         }
         return factors;
     }
+
+    /*
+        Given an integer num, return the number of digits in num that divide num.
+        An integer val divides nums if nums % val == 0.
+    */
+    public int countDigits(final int num) {
+        int count = 0;
+        final int[] digits = String.valueOf(num).chars().map(Character::getNumericValue).toArray();
+        for (final int digit : digits) {
+            if (num % digit == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
