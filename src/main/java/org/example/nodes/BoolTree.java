@@ -1,5 +1,7 @@
 package org.example.nodes;
 
+import org.example.nodes.models.TreeNode;
+
 /*
     You are given the root of a full binary tree with the following properties:
         Leaf nodes have either the value 0 or 1, where 0 represents False and 1 represents True.
