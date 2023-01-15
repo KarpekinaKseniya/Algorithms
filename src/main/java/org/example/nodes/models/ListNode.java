@@ -8,6 +8,9 @@ public class ListNode {
 
     private ListNode next;
 
+    public ListNode() {
+    }
+
     public ListNode(final int val) {
         this.val = val;
     }
@@ -23,6 +26,10 @@ public class ListNode {
 
     public ListNode getNext() {
         return next;
+    }
+
+    public void setNext(ListNode next) {
+        this.next = next;
     }
 
     @Override
