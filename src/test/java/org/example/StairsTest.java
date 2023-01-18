@@ -11,7 +11,7 @@ class StairsTest {
     private final Stairs stairs = new Stairs();
 
     @ParameterizedTest
-    @CsvSource(value = {"2:2", "3:3", "45:1836311903"}, delimiter = ':')
+    @CsvSource(value = {"2:2", "3:3", "45:1836311903", "1:1"}, delimiter = ':')
     void shouldReturnClimbStairs(final int n, final int expected) {
         assertThat(stairs.climbStairs(n), is(expected));
     }
