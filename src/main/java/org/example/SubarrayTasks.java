@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class SubarrayTasks {
 
@@ -36,7 +35,7 @@ public class SubarrayTasks {
         return the number of non-empty subarrays that have a sum divisible by k.
         A subarray is a contiguous part of an array.
     */
-    public int subarrayDivByK(int[] nums, int k) {
+    public int subarrayDivByK(final int[] nums, final int k) {
         final Map<Integer, Integer> map = new HashMap<>();
         int remainder;
         for (int i = 0; i < nums.length; i++) {
@@ -51,5 +50,40 @@ public class SubarrayTasks {
             count += frequency * (frequency - 1) / 2;
         }
         return count;
+    }
+
+    /*
+        Given an integer array nums,
+        return all the different possible non-decreasing subsequences of the given array
+        with at least two elements. You may return the answer in any order.
+    */
+    public List<List<Integer>> findSubsequences(final int[] nums) {
+        final List<List<Integer>> result = new ArrayList<>();
+        int len = nums.length;
+        int size;
+        final HashSet<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < (1 << len); i++) {
+            List<Integer> list = new ArrayList<>();
+            int a = i;
+            for (final int num : nums) {
+                size = list.size();
+                if ((a & 1) == 1) {
+                    if (size >= 1 && num < list.get(size - 1)) {
+                        break;
+                    }
+                    list.add(num);
+                }
+                a = a >> 1;
+                if (a == 0)
+                    break;
+            }
+            if (list.size() >= 2) {
+                if (!set.contains(list)) {
+                    result.add(new ArrayList<>(list));
+                    set.add(new ArrayList<>(list));
+                }
+            }
+        }
+        return result;
     }
 }
