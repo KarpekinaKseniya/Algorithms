@@ -1,7 +1,12 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Words {
 
@@ -62,5 +67,34 @@ public class Words {
             }
         }
         return true;
+    }
+
+    /*
+        Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
+        A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.
+    */
+    public List<String> findAllConcatenatedWordsInADict(final String[] words) {
+        final List<String> result = new ArrayList<>();
+        final Set<String> set = new HashSet<>(Arrays.asList(words));
+        for (String word : words) {
+            set.remove(word);
+            if (trim(set, word)) {
+                result.add(word);
+            }
+            set.add(word);
+        }
+        return result;
+    }
+
+    private boolean trim(final Set<String> set, final String word) {
+        if (set.contains(word)) {
+            return true;
+        }
+        for (int i = 1; i < word.length(); i++) {
+            if (set.contains(word.substring(0, i)) && trim(set, word.substring(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
