@@ -38,4 +38,41 @@ public class Sums {
         }
         return new ArrayList<>(res);
     }
+
+    /*
+        You are given a positive integer array nums.
+        The element sum is the sum of all the elements in nums.
+        The digit sum is the sum of all the digits (not necessarily distinct) that appear in nums.
+        Return the absolute difference between the element sum and digit sum of nums.
+        Note that the absolute difference between two integers x and y is defined as |x - y|.
+    */
+    public int differenceOfSum(final int[] nums) {
+        final int sum = arraySum(nums);
+        final int digitsSum = digitSum(nums);
+        return Math.abs(sum - digitsSum);
+    }
+
+    private int arraySum(final int[] nums) {
+        int sum = 0;
+        for (final int num : nums) {
+            sum += num;
+        }
+        return sum;
+    }
+
+    private int digitSum(final int[] nums) {
+        int sum = 0;
+        for (final int num : nums) {
+            if (num <= 9) {
+                sum += num;
+            } else {
+                int digits = num;
+                while (digits > 0) {
+                    sum = sum + digits % 10;
+                    digits = digits / 10;
+                }
+            }
+        }
+        return sum;
+    }
 }

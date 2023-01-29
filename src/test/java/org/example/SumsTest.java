@@ -23,10 +23,24 @@ class SumsTest {
         //@formatter:on
     }
 
+    private static Stream<Arguments> provideNumsAndDiffSums() {
+        //@formatter:off
+        return Stream.of(
+                Arguments.of(new int[]{1, 19, 1, 2, 1, 14}, 18),
+                Arguments.of(new int[]{1, 15, 6, 3}, 9),
+                Arguments.of(new int[]{1, 2, 3, 4}, 0));
+        //@formatter:on
+    }
+
     @ParameterizedTest
     @MethodSource("provideNumsAndSums")
-    void threeSum(final int[] nums, final List<List<Integer>> expected) {
+    void shouldReturnThreeSum(final int[] nums, final List<List<Integer>> expected) {
         assertThat(sums.threeSum(nums), is(expected));
     }
 
+    @ParameterizedTest
+    @MethodSource("provideNumsAndDiffSums")
+    void shouldReturnDiffSums(final int[] nums, final int expected) {
+        assertThat(sums.differenceOfSum(nums), is(expected));
+    }
 }
