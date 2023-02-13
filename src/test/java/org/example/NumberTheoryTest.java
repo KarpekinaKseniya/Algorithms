@@ -1,14 +1,13 @@
 package org.example;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 class NumberTheoryTest {
 
@@ -40,7 +39,7 @@ class NumberTheoryTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"8:8", "1:2", "121:242", "1000:1000"}, delimiter = ':')
+    @CsvSource(value = { "8:8", "1:2", "121:242", "1000:1000" }, delimiter = ':')
     void shouldReturnSmallestEvenMultiple(final int num, final int expected) {
         assertThat(numberTheory.smallestEvenMultiple(num), is(expected));
     }
@@ -52,15 +51,20 @@ class NumberTheoryTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"7:1", "121:2", "1248:4"}, delimiter = ':')
+    @CsvSource(value = { "7:1", "121:2", "1248:4" }, delimiter = ':')
     void shouldCountDigits(final int number, final int count) {
         assertThat(numberTheory.countDigits(number), is(count));
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"3:2", "15:3136", "37:2082876103"}, delimiter = ':')
+    @CsvSource(value = { "3:2", "15:3136", "37:2082876103" }, delimiter = ':')
     void shouldReturnTribonacci(final int number, final int tribonacci) {
         assertThat(numberTheory.tribonacci(number), is(tribonacci));
     }
 
+    @ParameterizedTest
+    @CsvSource(value = { "278382788:569302584:145459898", "21:22:1", "8:10:1", "3:7:3" }, delimiter = ':')
+    void shouldReturnCountOdds(final int low, final int high, final int count) {
+        assertThat(numberTheory.countOdds(low, high), is(count));
+    }
 }

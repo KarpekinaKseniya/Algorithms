@@ -80,4 +80,12 @@ public class NumberTheory {
         }
         return fibonacci[n];
     }
+
+    //Given two non-negative integers low and high. Return the count of odd numbers between low and high (inclusive).
+    public int countOdds(final int low, final int high) {
+        if (high % 2 == 0 && low % 2 == 0) {
+            return (high - low) / 2;
+        }
+        return (high - low) / 2 + 1;
+    }
 }
