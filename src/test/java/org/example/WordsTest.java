@@ -1,5 +1,6 @@
 package org.example;
 
+import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -21,6 +22,15 @@ class WordsTest {
                 Arguments.of(new String[]{"cat", "dog", "catdog"}, List.of("catdog")),
                 Arguments.of(new String[]{"apple", "pine", "pineapple", "carrot"}, List.of("pineapple"))
         );
+        //@formatter:on
+    }
+
+    private static Stream<Arguments> provideWordsAndString() {
+        //@formatter:off
+        return Stream.of(
+                Arguments.of("barfoothefoobarman", new String[] { "foo", "bar" }, List.of(0, 9)),
+                Arguments.of("wordgoodgoodgoodbestword", new String[] { "word", "good", "best", "word" }, emptyList()),
+                Arguments.of("barfoofoobarthefoobarman", new String[] { "bar", "foo", "the" }, List.of(6, 9, 12)));
         //@formatter:on
     }
 
@@ -48,5 +58,11 @@ class WordsTest {
     @MethodSource("provideConcatenatedWords")
     void shouldReturnConcatenatedWords(final String[] arrayOfWords, List<String> expected) {
         assertThat(words.findAllConcatenatedWordsInADict(arrayOfWords), is(expected));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideWordsAndString")
+    void shouldFindSubstringIndexes(final String s, final String[] arrayOfWords, final List<Integer> expected) {
+        assertThat(words.findSubstring(s, arrayOfWords), is(expected));
     }
 }

@@ -70,8 +70,59 @@ public class Words {
     }
 
     /*
+        You are given a string s and an array of strings words. All the strings of words are of the same length.
+        A concatenated substring in s is a substring that contains all the strings of any permutation of words concatenated.
+        For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab"
+        are all concatenated strings. "acdbef" is not a concatenated substring because it is not the concatenation of any permutation of words.
+        Return the starting indices of all the concatenated substrings in s. You can return the answer in any order.
+    */
+    public List<Integer> findSubstring(final String s, final String[] words) {
+        final Map<String, Integer> map = new HashMap<>();
+        final int wordLength = words[0].length();
+        int len = 0;
+        for (final String word : words) {
+            if (map.containsKey(word)) {
+                map.put(word, map.get(word) + 1);
+            } else {
+                map.put(word, 1);
+            }
+            len += word.length();
+        }
+        final List<Integer> indexes = new ArrayList<>();
+        final int times = s.length() - len;
+        for (int i = 0; i <= times; i++) {
+            if (map.isEmpty()) {
+                for (final String word : words) {
+                    if (map.containsKey(word)) {
+                        map.put(word, map.get(word) + 1);
+                    } else {
+                        map.put(word, 1);
+                    }
+                }
+            }
+            String sub = s.substring(i, i + len);
+            int count = 0;
+            while (count < words.length) {
+                final String word = sub.substring(0, wordLength);
+                final Integer freq = map.get(word);
+                if (freq != null && freq > 0) {
+                    map.put(word, freq - 1);
+                    sub = sub.substring(wordLength);
+                    count++;
+                } else
+                    break;
+            }
+            if (count == words.length) {
+                indexes.add(i);
+            }
+            map.clear();
+        }
+        return indexes;
+    }
+
+    /*
         Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
-        A concatenated word is defined as a string that is comprised entirely of at least two shorter words in the given array.
+        A concatenated word is defined as a string that is composed entirely of at least two shorter words in the given array.
     */
     public List<String> findAllConcatenatedWordsInADict(final String[] words) {
         final List<String> result = new ArrayList<>();
