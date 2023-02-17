@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class WorkWithArrays {
@@ -35,6 +37,33 @@ class WorkWithArrays {
         for (int i = 0; i < n; i++) {
             result[j++] = nums[i];
             result[j++] = nums[i + n];
+        }
+        return result;
+    }
+
+    /*
+        Given an array of integers nums sorted in non-decreasing order,
+        find the starting and ending position of a given target value.
+        If target is not found in the array, return [-1, -1].
+        You must write an algorithm with O(log n) runtime complexity.
+    */
+    public int[] searchRange(final int[] nums, final int target) {
+        int[] result = {-1, -1};
+        final List<Integer> indexes = new ArrayList<>();
+        for (int i = 0; i < nums.length; i++) {
+            final int num = nums[i];
+            if (num == target){
+                indexes.add(i);
+            }
+        }
+        if (indexes.isEmpty()) {
+            return result;
+        }
+        result[0] = indexes.get(0);
+        if (indexes.size() > 1) {
+            result[1] = indexes.get(indexes.size() - 1);
+        } else {
+            result[1] = result[0];
         }
         return result;
     }
