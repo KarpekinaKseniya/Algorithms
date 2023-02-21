@@ -67,4 +67,20 @@ class WorkWithArrays {
         }
         return result;
     }
+
+    /*
+        You are given a sorted array consisting of only integers where every element appears exactly twice,
+        except for one element which appears exactly once.
+        Return the single element that appears only once.
+    */
+    public int singleNonDuplicate(final int[] nums) {
+        final Map<Integer, Integer> map = new HashMap<>();
+        for (final int num : nums) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        return map.entrySet().stream()
+                .filter(value -> value.getValue() == 1)
+                .map(Map.Entry::getKey)
+                .findFirst().orElse(-1);
+    }
 }

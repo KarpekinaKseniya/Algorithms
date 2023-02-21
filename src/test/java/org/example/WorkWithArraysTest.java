@@ -40,6 +40,21 @@ class WorkWithArraysTest {
         assertThat(workWithArrays.searchRange(nums, target), is(expected));
     }
 
+    @ParameterizedTest
+    @MethodSource("provideNumsAndNonDuplicateResult")
+    void shouldReturnSingleNonDuplicate(final int[] nums, final int expected) {
+        assertThat(workWithArrays.singleNonDuplicate(nums), is(expected));
+    }
+
+    private static Stream<Arguments> provideNumsAndNonDuplicateResult() {
+        //@formatter:off
+        return Stream.of(
+                Arguments.of(new int[] { 1, 1, 2, 3, 3, 4, 4, 8, 8 }, 2),
+                Arguments.of(new int[] { 3, 3, 7, 7, 2, 2, 5, 5 }, -1),
+                Arguments.of(new int[] { 3, 3, 7, 7, 10, 11, 11 }, 10));
+        //@formatter:on
+    }
+
     private static Stream<Arguments> provideNumsAndTargetForSearch() {
         //@formatter:off
         return Stream.of(
