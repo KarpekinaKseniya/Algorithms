@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Arrays;
+
 public class NumberTheory {
 
     /*
@@ -87,5 +89,34 @@ public class NumberTheory {
             return (high - low) / 2;
         }
         return (high - low) / 2 + 1;
+    }
+
+    /*
+        Given an integer array nums of length n and an integer target,
+        find three integers in nums such that the sum is closest to target.
+        Return the sum of the three integers.
+        You may assume that each input would have exactly one solution.
+    */
+    public int threeSumClosest(final int[] nums, final int target) {
+        Arrays.sort(nums);
+        int min = Integer.MAX_VALUE;
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int j = i + 1;
+            int k = nums.length - 1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum > target) {
+                    k--;
+                } else {
+                    j++;
+                }
+                if (Math.abs(target - sum) < min) {
+                    min = Math.abs(target - sum);
+                    result = sum;
+                }
+            }
+        }
+        return result;
     }
 }
