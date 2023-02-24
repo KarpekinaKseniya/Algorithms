@@ -1,9 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class WorkWithArrays {
 
@@ -82,5 +79,36 @@ class WorkWithArrays {
                 .filter(value -> value.getValue() == 1)
                 .map(Map.Entry::getKey)
                 .findFirst().orElse(-1);
+    }
+
+    /*
+        You are given an array nums of n positive integers.
+        You can perform two types of operations on any element of the array any number of times:
+        If the element is even, divide it by 2.
+        For example, if the array is [1,2,3,4], then you can do this operation on the last element, and the array will be [1,2,3,2].
+        If the element is odd, multiply it by 2.
+        For example, if the array is [1,2,3,4], then you can do this operation on the first element, and the array will be [2,2,3,4].
+        The deviation of the array is the maximum difference between any two elements in the array.
+        Return the minimum deviation the array can have after performing some number of operations.
+    */
+    public int minimumDeviation(final int[] nums) {
+        final PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        int min = Integer.MAX_VALUE;
+        for(int i : nums) {
+            if(i % 2 == 1) {i *= 2;}
+
+            pq.add(i);
+            min = Math.min(min, i);
+        }
+        int diff = Integer.MAX_VALUE;
+        while(pq.peek() % 2 == 0) {
+            int max = pq.remove();
+            diff = Math.min(diff, max - min);
+
+            max /= 2;
+            min = Math.min(min, max);
+            pq.add(max);
+        }
+        return Math.min(diff, pq.peek() - min);
     }
 }
