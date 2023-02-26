@@ -1,12 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Words {
 
@@ -118,6 +112,36 @@ public class Words {
             map.clear();
         }
         return indexes;
+    }
+
+    /*
+    Given two strings word1 and word2, return the minimum number of operations required
+    to convert word1 to word2.
+    You have the following three operations permitted on a word:
+        Insert a character
+        Delete a character
+        Replace a character
+    */
+    public int minDistance(final String word1, final String word2) {
+        final int m = word1.length();
+        final int n = word2.length();
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 0; i < m; i++)
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        for (int j = 0; j <= n; j++)
+            dp[0][j] = j;
+        for (int i = 0; i <= m; i++)
+            dp[i][0] = i;
+        for (int i = 1; i <= m; i++)
+            for (int j = 1; j <= n; j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1))
+                    dp[i][j] = dp[i - 1][j - 1];
+                else {
+                    int min = Math.min(dp[i][j - 1], dp[i - 1][j]);
+                    dp[i][j] = 1 + Math.min(dp[i - 1][j - 1], min);
+                }
+            }
+        return dp[m][n];
     }
 
     /*
