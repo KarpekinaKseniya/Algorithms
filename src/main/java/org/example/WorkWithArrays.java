@@ -1,6 +1,11 @@
 package org.example;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 class WorkWithArrays {
 
@@ -135,5 +140,42 @@ Return the array answer.
             leftSum += val;
         }
         return nums;
+    }
+
+    /*
+    Given an array of integers nums, sort the array in ascending order and return it.
+    You must solve the problem without using any built-in functions in O(nlog(n))
+    time complexity and with the smallest space complexity possible.
+     */
+    public int[] sortArray(final int[] nums) {
+        quickSort(nums,0, nums.length - 1);
+        return nums;
+    }
+
+    private void quickSort(final int[] nums, final int s,final int e){
+        if( s >= e) {
+            return;
+        }
+        int p = nums[s];
+        int curr = s+1, back=e;
+        while(curr <= back) {
+            if(p > nums[curr]) {
+                curr++;
+            } else if(p > nums[back]) {
+                swap(nums, curr, back);
+                back--;
+            } else{
+                back--;
+            }
+        }
+        swap(nums, s, curr - 1);
+        quickSort(nums, s, curr - 1);
+        quickSort(nums, curr, e);
+    }
+
+    private void swap(final int[] nums, final int i, final int j){
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
     }
 }
