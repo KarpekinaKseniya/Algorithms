@@ -1,10 +1,11 @@
 package org.example.nodes;
 
+import org.example.nodes.models.TreeNode;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.example.nodes.models.TreeNode;
 
 /*
     Given the root of a binary tree, return all duplicate subtrees.
