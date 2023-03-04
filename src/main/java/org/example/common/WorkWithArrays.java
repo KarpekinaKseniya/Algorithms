@@ -126,7 +126,7 @@ class WorkWithArrays {
             If there is no such element, leftSum[i] = 0.
             rightSum[i] is the sum of elements to the right of the index i in the array nums.
             If there is no such element, rightSum[i] = 0.
-Return the array answer.
+        Return the array answer.
     */
     public int[] leftRightDifference(final int[] nums) {
         int leftSum = 0, rightSum = 0, len = nums.length;
@@ -140,6 +140,31 @@ Return the array answer.
             leftSum += val;
         }
         return nums;
+    }
+
+    /*
+        You are given an integer array nums and two integers minK and maxK.
+        A fixed-bound subarray of nums is a subarray that satisfies the following conditions:
+            The minimum value in the subarray is equal to minK.
+            The maximum value in the subarray is equal to maxK.
+            Return the number of fixed-bound subarrays.
+        A subarray is a contiguous part of an array.
+    */
+    public long countSubarrays(final int[] nums, final int minK, final int maxK) {
+        int minI = -1, maxI = -1, left = -1, right = 0;
+        long count = 0;
+        while(right < nums.length){
+            if(nums[right] < minK || nums[right] > maxK){
+                minI = right;
+                maxI = right;
+                left = right;
+            }
+            minI = nums[right] == minK ? right : minI;
+            maxI = nums[right] == maxK ?  right : maxI;
+            count += Math.min(minI, maxI) - left;
+            right++;
+        }
+        return count;
     }
 
     /*
