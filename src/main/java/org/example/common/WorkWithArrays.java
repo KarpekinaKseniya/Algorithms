@@ -168,6 +168,23 @@ class WorkWithArrays {
     }
 
     /*
+        Given an array arr of positive integers sorted in a strictly increasing order,
+        and an integer k.
+        Return the kth positive integer that is missing from this array.
+    */
+    public int findKthPositive(final int[] arr, final  int k) {
+        int lo =0;
+        int hi = arr.length;
+        while(lo < hi){
+            final int mid = lo + (hi - lo) / 2;
+            final int missing = arr[mid] - (mid+1);
+            if(missing<k) lo = mid+1;
+            else hi = mid;
+        }
+        return lo + k;
+    }
+
+    /*
     Given an array of integers nums, sort the array in ascending order and return it.
     You must solve the problem without using any built-in functions in O(nlog(n))
     time complexity and with the smallest space complexity possible.
