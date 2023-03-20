@@ -12,20 +12,21 @@ import java.util.List;
  */
 public class StringVowels {
 
-    public int countVowelStrings(final int n) {
-        final char[] arr = new char[]{'a', 'e', 'i', 'o', 'u'};
-        List<String> list = new ArrayList<>();
-        backtrack(arr, n, list, 0, "");
-        return list.size();
-    }
+  public int countVowelStrings(final int n) {
+    final char[] arr = new char[]{'a', 'e', 'i', 'o', 'u'};
+    List<String> list = new ArrayList<>();
+    backtrack(arr, n, list, 0, "");
+    return list.size();
+  }
 
-    private void backtrack(final char[] arr, final int n, final List<String> list, final int j, final String word) {
-        if (word.length() == n) {
-            list.add(word);
-        } else {
-            for (int i = j; i < arr.length; i++) {
-                backtrack(arr, n, list, i, word + arr[i]);
-            }
-        }
+  private void backtrack(final char[] arr, final int n, final List<String> list, final int j,
+      final String word) {
+    if (word.length() == n) {
+      list.add(word);
+    } else {
+      for (int i = j; i < arr.length; i++) {
+        backtrack(arr, n, list, i, word + arr[i]);
+      }
     }
+  }
 }
