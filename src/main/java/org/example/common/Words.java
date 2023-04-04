@@ -192,6 +192,27 @@ public class Words {
     }
 
     /*
+        Given a string s, partition the string into one or more substrings such that
+        the characters in each substring are unique. That is, no letter appears in a single
+        substring more than once.
+        Return the minimum number of substrings in such a partition.
+        Note that each character should belong to exactly one substring in a partition.
+    */
+    public int partitionString(final String s) {
+        int count = (s.isEmpty()) ? 0 : 1;
+        final String lowerS = s.toLowerCase();
+        final HashSet<Character> letter = new HashSet<>();
+        for (int i = 0; i < lowerS.length(); i++) {
+            if (letter.contains(lowerS.charAt(i))) {
+                letter.clear();
+                count++;
+            }
+            letter.add(lowerS.charAt(i));
+        }
+        return count;
+    }
+
+    /*
         Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
         A concatenated word is defined as a string that is composed entirely of at least two shorter words in the given array.
     */
