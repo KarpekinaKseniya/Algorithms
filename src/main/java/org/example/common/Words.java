@@ -213,6 +213,27 @@ public class Words {
     }
 
     /*
+        You are given a string s, which contains stars *.
+        In one operation, you can:
+            Choose a star in s.
+            Remove the closest non-star character to its left, as well as remove the star itself.
+            Return the string after all stars have been removed.
+        Note:
+            The input will be generated such that the operation is always possible.
+            It can be shown that the resulting string will always be unique.
+     */
+    public String removeStars(final String s) {
+        String result = "";
+        int cntStar = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == '*') cntStar++;
+            else if (cntStar == 0) result = s.charAt(i) + result;
+            else cntStar--;
+        }
+        return result;
+    }
+
+    /*
         Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
         A concatenated word is defined as a string that is composed entirely of at least two shorter words in the given array.
     */
