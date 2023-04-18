@@ -274,6 +274,29 @@ public class Words {
     }
 
     /*
+        You are given two strings word1 and word2.
+        Merge the strings by adding letters in alternating order, starting with word1.
+        If a string is longer than the other, append the additional letters onto the end of
+        the merged string.
+
+        Return the merged string.
+     */
+    public String mergeAlternately(final String word1, final String word2) {
+        final int len1 = word1.length();
+        final int len2 = word2.length();
+        int i = 0;
+        int j = 0;
+        StringBuilder sb = new StringBuilder();
+        while (i < len1 || j < len2) {
+            if (i < word1.length())
+                sb.append(word1.charAt(i++));
+            if (j < word2.length())
+                sb.append(word2.charAt(j++));
+        }
+        return sb.toString();
+    }
+
+    /*
         Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
         A concatenated word is defined as a string that is composed entirely of at least two shorter words in the given array.
     */
