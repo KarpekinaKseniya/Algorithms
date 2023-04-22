@@ -1,6 +1,7 @@
 package org.example.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,5 +56,46 @@ public class PalindromeSubstring {
             }
         }
         return dp[0];
+    }
+
+    /*
+        Given a string s. In one step you can insert any character at any index of the string.
+        Return the minimum number of steps to make s palindrome.
+        A Palindrome String is one that reads the same backward as well as forward.
+     */
+    public int minInsertions(final String s) {
+        final int n = s.length();
+        int[][] dp = new int[n + 1][n + 1];
+        for (final int[] temp : dp) {
+            Arrays.fill(temp, -1);
+        }
+        return getCount(s, 0, n - 1, dp);
+    }
+
+    public int getCount(final String s, final int left, final int right, final int[][] dp) {
+        final boolean checkRL = s.charAt(left) == s.charAt(right);
+        if (dp[left][right] != -1) {
+            return dp[left][right];
+        }
+        if (left == right) {
+            return 0;
+        }
+        if (left + 1 == right) {
+            if (checkRL) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        if (checkRL) {
+            final int ans = getCount(s, left + 1, right - 1, dp);
+            dp[left][right] = ans;
+            return ans;
+        } else {
+            final int ans1 = getCount(s, left, right - 1, dp);
+            final int ans2 = getCount(s, left + 1, right, dp);
+            dp[left][right] = Math.min(ans1, ans2) + 1;
+            return Math.min(ans1, ans2) + 1;
+        }
     }
 }
