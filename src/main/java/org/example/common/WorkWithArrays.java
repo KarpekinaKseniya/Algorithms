@@ -3,27 +3,29 @@ package org.example.common;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Set;
 
 class WorkWithArrays {
 
-  /*
-  Given an array nums of size n, return the majority element.
+    /*
+    Given an array nums of size n, return the majority element.
 
-  The majority element is the element that appears more than n / 2 times.
-  You may assume that the majority element always exists in the array.
-  */
-  public int findMajorityElement(final int[] nums) {
-    final int appears = nums.length / 2;
-    final Map<Integer, Integer> map = new HashMap<>();
-    for (final int num : nums) {
-      map.merge(num, 1, Integer::sum);
-    }
-    //@formatter:off
+    The majority element is the element that appears more than n / 2 times.
+    You may assume that the majority element always exists in the array.
+    */
+    public int findMajorityElement(final int[] nums) {
+        final int appears = nums.length / 2;
+        final Map<Integer, Integer> map = new HashMap<>();
+        for (final int num : nums) {
+            map.merge(num, 1, Integer::sum);
+        }
+        //@formatter:off
     return map.entrySet().stream()
         .filter(value -> value.getValue() > appears)
         .map(Map.Entry::getKey)
@@ -254,6 +256,39 @@ class WorkWithArrays {
       }
     }
     return countLands;
+  }
+
+  /*
+      Given two 0-indexed integer arrays nums1 and nums2, return a list answer of size 2 where:
+        answer[0] is a list of all distinct integers in nums1 which are not present in nums2.
+        answer[1] is a list of all distinct integers in nums2 which are not present in nums1.
+      Note that the integers in the lists may be returned in any order.
+  */
+  public List<List<Integer>> findDifference(final int[] nums1, final int[] nums2) {
+    final Set<Integer> set1=new HashSet<>();
+    final Set<Integer> set2=new HashSet<>();
+    for(final int ele : nums1) {
+      set1.add(ele);
+    }
+    for(final int ele : nums2) {
+      set2.add(ele);
+    }
+    final List<List<Integer>> list = new ArrayList<>();
+    final List<Integer> l1 = new ArrayList<>();
+    final List<Integer> l2 = new ArrayList<>();
+    for(final int ele : set2) {
+      if(!set1.contains(ele)) {
+        l1.add(ele);
+      }
+    }
+    for(final int ele : set1) {
+      if(!set2.contains(ele)) {
+        l2.add(ele);
+      }
+    }
+    list.add(l2);
+    list.add(l1);
+    return list;
   }
 
   /*
