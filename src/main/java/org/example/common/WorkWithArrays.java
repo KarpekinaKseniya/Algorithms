@@ -265,8 +265,8 @@ class WorkWithArrays {
       Note that the integers in the lists may be returned in any order.
   */
   public List<List<Integer>> findDifference(final int[] nums1, final int[] nums2) {
-    final Set<Integer> set1=new HashSet<>();
-    final Set<Integer> set2=new HashSet<>();
+    final Set<Integer> set1 = new HashSet<>();
+    final Set<Integer> set2 = new HashSet<>();
     for(final int ele : nums1) {
       set1.add(ele);
     }
@@ -326,5 +326,38 @@ class WorkWithArrays {
     int t = nums[i];
     nums[i] = nums[j];
     nums[j] = t;
+  }
+
+  /*
+    Given a string s and an integer k, return the maximum number of vowel letters in any
+    substring of s with length k.
+    Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+  */
+  public int maxVowels(final String s, final int k) {
+    int max = 0;
+    if(s.length() == 0)
+      return max;
+    int secMax=0;
+    for(int i = 0; i < k; i++){
+      char ch = s.charAt(i);
+      if(isVowel(ch)){
+        secMax++;
+      }
+    }
+    max = Math.max(max,secMax);
+    for(int i = k; i < s.length(); i++){
+      final char c = s.charAt(i - k);
+      if(isVowel(c)){
+        secMax--;
+      }
+      if(isVowel(s.charAt(i))){
+        secMax++;
+      }
+      max = Math.max(max,secMax);
+    }
+    return max;
+  }
+  private boolean isVowel(final char c){
+    return c =='a' || c =='i' || c =='e' || c =='o' || c=='u';
   }
 }
