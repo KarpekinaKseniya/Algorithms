@@ -1,7 +1,9 @@
 package org.example.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class Matrix {
 
@@ -26,6 +28,47 @@ public class Matrix {
         Arrays.sort(res, Comparator.comparingInt(o -> Math.abs(o[0] - rCenter) + Math.abs(o[1] - cCenter))
         );
         return res;
+    }
+
+    /*
+        Given an m x n matrix, return all elements of the matrix in spiral order.
+    */
+    public List<Integer> spiralOrder(final int[][] matrix) {
+        int m = matrix.length - 1, n = matrix[0].length;
+        int x = 0, y = 0;
+        final List<Integer> list = new ArrayList<>();
+
+        while (true) {
+            if (n == 0) break;
+            for (var i = 0; i < n; i++, y++) {
+                list.add(matrix[x][y]);
+            }
+            x++;
+            y--;
+            n--;
+            if (m == 0) break;
+            for (var i = 0; i < m; i++, x++) {
+                list.add(matrix[x][y]);
+            }
+            y--;
+            x--;
+            m--;
+            if (n == 0) break;
+            for (var i = 0; i < n; i++, y--) {
+                list.add(matrix[x][y]);
+            }
+            x--;
+            y++;
+            n--;
+            if (m == 0) break;
+            for (var i = 0; i < m; i++, x--) {
+                list.add(matrix[x][y]);
+            }
+            y++;
+            x++;
+            m--;
+        }
+        return list;
     }
 
 }
