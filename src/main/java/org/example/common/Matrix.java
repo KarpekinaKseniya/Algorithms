@@ -71,4 +71,29 @@ public class Matrix {
         return list;
     }
 
+    /*
+        Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
+     */
+    public int[][] generateMatrix(final int n) {
+        int x = 1, cnt = 0;
+        int[][] ans = new int[n][n];
+        int[][] visited = new int[n][n];
+        int i = 0, j = 0, k = 0;
+        while (cnt < (n * n)) {
+            if (visited[i][j] == 0) {
+                ans[i][j] = x++;
+                visited[i][j] = 1;
+                if (i == k && j < n - 1 - k) j++;
+                else if (j == n - 1 - k && i < n - 1 - k) i++;
+                else if (i == n - 1 - k && j <= n - 1 - k && j != k) j--;
+                else if (i <= n - 1 - k && j == k) i--;
+                cnt++;
+            } else {
+                k++;
+                i++;
+                j++;
+            }
+        }
+        return ans;
+    }
 }
