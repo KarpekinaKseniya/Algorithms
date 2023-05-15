@@ -24,6 +24,10 @@ public class ListNode {
         return val;
     }
 
+    public void setVal(int val) {
+        this.val = val;
+    }
+
     public ListNode getNext() {
         return next;
     }
