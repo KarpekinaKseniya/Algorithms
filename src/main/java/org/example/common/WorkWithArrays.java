@@ -1,6 +1,7 @@
 package org.example.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -360,4 +361,22 @@ class WorkWithArrays {
   private boolean isVowel(final char c){
     return c =='a' || c =='i' || c =='e' || c =='o' || c=='u';
   }
+
+  /*
+      A sequence of numbers is called an arithmetic progression if the difference
+      between any two consecutive elements is the same.
+      Given an array of numbers arr, return true if the array can be rearranged
+      to form an arithmetic progression. Otherwise, return false.
+  */
+  public boolean canMakeArithmeticProgression(final int[] arr) {
+    Arrays.sort(arr);
+    final int diff = arr[0] - arr[1];
+    for (int i = 1; i < arr.length - 1; i++) {
+      if (diff != arr[i] - arr[i + 1]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
 }
