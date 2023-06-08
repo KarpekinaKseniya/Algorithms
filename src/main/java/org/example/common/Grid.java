@@ -2,18 +2,18 @@ package org.example.common;
 
 import java.util.ArrayDeque;
 
-/*
-    Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix.
-    If there is no clear path, return -1.
-    A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to
-    the bottom-right cell (i.e., (n - 1, n - 1)) such that:
-        All the visited cells of the path are 0.
-        All the adjacent cells of the path are 8-directionally
-        connected (i.e., they are different and they share an edge or a corner).
-    The length of a clear path is the number of visited cells of this path.
-*/
 public class Grid {
 
+    /*
+        Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix.
+        If there is no clear path, return -1.
+        A clear path in a binary matrix is a path from the top-left cell (i.e., (0, 0)) to
+        the bottom-right cell (i.e., (n - 1, n - 1)) such that:
+            All the visited cells of the path are 0.
+            All the adjacent cells of the path are 8-directionally
+            connected (i.e., they are different and they share an edge or a corner).
+        The length of a clear path is the number of visited cells of this path.
+    */
     public int shortestPathBinaryMatrix(final int[][] grid) {
         if (grid[0][0] == 1) return -1;
 
@@ -44,4 +44,18 @@ public class Grid {
         return -1;
     }
 
+    /*
+        Given a m x n matrix grid which is sorted in non-increasing order both row-wise and
+        column-wise, return the number of negative numbers in grid.
+    */
+    public int countNegatives(final int[][] grid) {
+        int count = 0;
+        for (final int[] ints : grid) {
+            for (final int anInt : ints) {
+                if (anInt < 0)
+                    count++;
+            }
+        }
+        return count;
+    }
 }
