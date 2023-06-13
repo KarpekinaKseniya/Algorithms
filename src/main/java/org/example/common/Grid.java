@@ -1,6 +1,8 @@
 package org.example.common;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Grid {
 
@@ -54,6 +56,35 @@ public class Grid {
             for (final int anInt : ints) {
                 if (anInt < 0)
                     count++;
+            }
+        }
+        return count;
+    }
+
+    /*
+        Given a 0-indexed n x n integer matrix grid,
+        return the number of pairs (ri, cj) such that row ri and column cj are equal.
+        A row and column pair is considered equal if they contain the same elements in the
+        same order (i.e., an equal array).
+     */
+    public int equalPairs(final int[][] grid) {
+        final int len = grid.length;
+        Map<String, Integer> rows = new HashMap<>();
+        Map<String, Integer> cols = new HashMap<>();
+        for (int i = 0; i < len; i++) {
+            StringBuilder r = new StringBuilder();
+            StringBuilder c = new StringBuilder();
+            for (int j = 0; j < len; j++) {
+                r.append(grid[i][j]).append(' ');
+                c.append(grid[j][i]).append(' ');
+            }
+            rows.put(r.toString(), rows.getOrDefault(r.toString(), 0) + 1);
+            cols.put(c.toString(), cols.getOrDefault(c.toString(), 0) + 1);
+        }
+        int count = 0;
+        for (final String s : rows.keySet()) {
+            if (cols.containsKey(s)) {
+                count += rows.get(s) * cols.get(s);
             }
         }
         return count;
