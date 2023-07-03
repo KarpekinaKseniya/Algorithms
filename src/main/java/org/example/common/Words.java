@@ -297,6 +297,40 @@ public class Words {
     }
 
     /*
+        Given two strings s and goal, return true if you can swap two letters in s
+        so the result is equal to goal, otherwise, return false.
+        Swapping letters is defined as taking two indices i and j (0-indexed) such
+        that i != j and swapping the characters at s[i] and s[j].
+        For example, swapping at indices 0 and 2 in "abcd" results in "cbad".
+    */
+    public boolean buddyStrings(final String s, final String goal) {
+        int[] a = new int[26], b = new int[26];
+        char[] AC = s.toCharArray(), BC = goal.toCharArray();
+
+        boolean swapAble = false, allPresent = false;
+        int diff = 0;
+        if (AC.length == BC.length) {
+            for (int i = 0; i < AC.length; i++) {
+                a[AC[i] - 'a']++;
+                b[BC[i] - 'a']++;
+                if (AC[i] != BC[i]) {
+                    ++diff;
+                }
+            }
+            allPresent = true;
+            for (int i = 0; i < 26 && allPresent; i++) {
+                if (a[i] != b[i]) {
+                    allPresent = false;
+                }
+                if (2 <= a[i]) {
+                    swapAble = true;
+                }
+            }
+        }
+        return (2 == diff || (diff == 0 && swapAble)) && allPresent;
+    }
+
+    /*
         Given an array of strings words (without duplicates), return all the concatenated words in the given list of words.
         A concatenated word is defined as a string that is composed entirely of at least two shorter words in the given array.
     */
