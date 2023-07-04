@@ -119,4 +119,24 @@ public class NumberTheory {
         }
         return result;
     }
+
+    /*
+        Given an integer array nums where every element appears three times except for one,
+        which appears exactly once. Find the single element and return it.
+        You must implement a solution with a linear runtime complexity and use only constant extra space.
+    */
+    public int singleNumber(final int[] nums) {
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            int count = 0;
+            for (final int num : nums) {
+                count += (num >> i) & 1;
+            }
+            count = count % 3;
+            if (count != 0) {
+                result |= count << i;
+            }
+        }
+        return result;
+    }
 }
