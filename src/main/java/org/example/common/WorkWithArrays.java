@@ -379,4 +379,29 @@ class WorkWithArrays {
     return true;
   }
 
+  /*
+    Given a binary array nums,
+    you should delete one element from it.
+    Return the size of the longest non-empty subarray containing only 1's in the resulting array.
+    Return 0 if there is no such subarray.
+  */
+  public int longestSubarray(int[] nums) {
+    int result = 0;
+    int z = 0, si = 0 , cur = 0, ei = nums.length - 1;
+    while(cur <= ei) {
+      if(nums[cur] == 0) {
+        z++;
+      }
+      while(si <= cur && z > 1 ) {
+        if(nums[si] == 0) {
+          z--;
+        }
+        si++;
+      }
+      result = Math.max(result, cur - si);
+      cur++;
+    }
+    return result;
+  }
+
 }
