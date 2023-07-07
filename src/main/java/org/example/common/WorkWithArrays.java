@@ -427,4 +427,32 @@ class WorkWithArrays {
     }
     return min == Integer.MAX_VALUE ? 0 : min;
   }
+
+  /*
+      A teacher is writing a test with n true/false questions,
+      with 'T' denoting true and 'F' denoting false. He wants to confuse the students by
+      maximizing the number of consecutive questions with the same answer (multiple trues or multiple
+      falses in a row).
+      You are given a string answerKey, where answerKey[i] is the original answer to the ith question.
+      In addition, you are given an integer k, the maximum number of times you may perform
+      the following operation:
+      Change the answer key for any question to 'T' or 'F' (i.e., set answerKey[i] to 'T' or 'F').
+      Return the maximum number of consecutive 'T's or 'F's in the answer key after performing
+      the operation at most k times.
+  */
+  public int maxConsecutiveAnswers(String answerKey, int k) {
+    int result = 0;
+    int max_count = 0;
+    int[] count = new int[2];
+    for(int l = 0,r=0;r<answerKey.length();r++)
+    {
+      max_count = Math.max(max_count,++count[answerKey.charAt(r) == 'T' ? 1: 0]);
+      while(max_count + k < r-l+1)
+      {
+        --count[answerKey.charAt(l++) == 'T'? 1 : 0];
+      }
+      result = Math.max(result,r-l+1);
+    }
+    return result;
+  }
 }
