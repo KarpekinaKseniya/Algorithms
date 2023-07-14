@@ -1,6 +1,8 @@
 package org.example.common;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Sequences {
 
@@ -49,5 +51,30 @@ public class Sequences {
             }
         }
         return cnt;
+    }
+
+    /*
+        Given an integer array arr and an integer difference, return the length of the longest
+        subsequence in arr which is an arithmetic sequence such that the difference between adjacent
+        elements in the subsequence equals difference.
+        A subsequence is a sequence that can be derived from arr by deleting some or no elements
+        without changing the order of the remaining elements.
+    */
+    public int longestSubsequence(int[] arr, int difference) {
+        Map<Integer, Integer> nm = new HashMap<>();
+        nm.put(arr[0], 1);
+        for (int i = 1; i < arr.length; i++) {
+            int value = arr[i] - difference;
+            if (nm.containsKey(value)) {
+                nm.put(arr[i], nm.get(value) + 1);
+            } else {
+                nm.put(arr[i], 1);
+            }
+        }
+        int result = 1;
+        for (int i : nm.keySet()) {
+            result = Math.max(result, nm.get(i));
+        }
+        return result;
     }
 }
