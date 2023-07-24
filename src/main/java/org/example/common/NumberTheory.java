@@ -171,4 +171,23 @@ public class NumberTheory {
         }
         return result;
     }
+
+    //Implement pow(x, n), which calculates x raised to the power n (i.e., x^n).
+    public double myPow(double x, int n) {
+        double result = 1.0;
+        while (n != 0) {
+            if (Math.abs(n) % 2 == 0) {
+                x *= x;
+                n /= 2;
+            }
+            if (n > 0) {
+                result *= x;
+                n--;
+            } else {
+                result *= (1 / x);
+                n++;
+            }
+        }
+        return result;
+    }
 }
