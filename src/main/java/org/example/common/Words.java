@@ -389,23 +389,43 @@ public class Words {
     //Given two strings s1 and s2, return the lowest ASCII sum of deleted characters
     // to make two strings equal.
     public int minimumDeleteSum(String string1, String string2) {
-        if(string1.length()<string2.length()) return minimumDeleteSum(string2,string1);
-        char[] s1=string1.toCharArray(), s2=string2.toCharArray();
-        int[] memo=new int[s2.length];
-        memo[memo.length-1]=s2[s2.length-1];
-        for(int i=memo.length-2;i>-1;i--) memo[i]+=memo[i+1]+s2[i];
-        int[] ps=new int[s1.length];
-        ps[ps.length-1]=s1[s1.length-1];
-        for(int i=s1.length-2;i>-1;i--) ps[i]+=ps[i+1]+s1[i];
-        for(int i=s1.length-1;i>-1;i--) {
-            int last=ps[i],prevLast=i<s1.length-1?ps[i+1]:0;
-            for(int j=s2.length-1;j>-1;j--) {
-                int tmp=memo[j];
-                if(s1[i]==s2[j]) last=memo[j]=prevLast;
-                else last=memo[j]=Math.min(memo[j]+s1[i],last+s2[j]);
-                prevLast=tmp;
+        if (string1.length() < string2.length()) return minimumDeleteSum(string2, string1);
+        char[] s1 = string1.toCharArray(), s2 = string2.toCharArray();
+        int[] memo = new int[s2.length];
+        memo[memo.length - 1] = s2[s2.length - 1];
+        for (int i = memo.length - 2; i > -1; i--) memo[i] += memo[i + 1] + s2[i];
+        int[] ps = new int[s1.length];
+        ps[ps.length - 1] = s1[s1.length - 1];
+        for (int i = s1.length - 2; i > -1; i--) ps[i] += ps[i + 1] + s1[i];
+        for (int i = s1.length - 1; i > -1; i--) {
+            int last = ps[i], prevLast = i < s1.length - 1 ? ps[i + 1] : 0;
+            for (int j = s2.length - 1; j > -1; j--) {
+                int tmp = memo[j];
+                if (s1[i] == s2[j]) last = memo[j] = prevLast;
+                else last = memo[j] = Math.min(memo[j] + s1[i], last + s2[j]);
+                prevLast = tmp;
             }
         }
         return memo[0];
+    }
+
+    /*
+        Given a string s and a dictionary of strings wordDict, return true if s can be segmented
+        into a space-separated sequence of one or more dictionary words.
+        Note that the same word in the dictionary may be reused multiple times in the segmentation.
+    */
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> set = new HashSet<>(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && set.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
     }
 }
