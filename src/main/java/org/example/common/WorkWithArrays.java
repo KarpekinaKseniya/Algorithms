@@ -572,4 +572,19 @@ class WorkWithArrays {
     return arr[amount];
   }
 
+  /*
+      Given an integer array nums and an integer k, return the k-th largest element in the array.
+      Note that it is the k-th largest element in the sorted order, not the k-th distinct element.
+      Can you solve it without sorting?
+   */
+  public int findKthLargest(int[] nums, int k) {
+    final PriorityQueue<Integer> p = new PriorityQueue<>();
+    for (final int x : nums) {
+      p.offer(x);
+      if (p.size() > k) {
+        p.poll();
+      }
+    }
+    return p.peek();
+  }
 }
