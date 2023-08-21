@@ -428,4 +428,22 @@ public class Words {
         }
         return dp[s.length()];
     }
+
+    /*
+        Given a string s, check if it can be constructed by taking a substring of it and
+        appending multiple copies of the substring together.
+    */
+    public boolean repeatedSubstringPattern(String s) {
+        int l = s.length();
+        for (int i = l / 2; i >= 1; i--) {
+            if (l % i == 0) {
+                int m = l / i;
+                String subS = s.substring(0, i);
+                StringBuilder sb = new StringBuilder();
+                sb.append(subS.repeat(m));
+                if (sb.toString().equals(s)) return true;
+            }
+        }
+        return false;
+    }
 }
