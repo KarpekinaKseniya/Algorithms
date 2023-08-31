@@ -611,4 +611,32 @@ class WorkWithArrays {
      }
      return result;
     }
+
+    /*
+    There is a one-dimensional garden on the x-axis.
+    The garden starts at the point 0 and ends at the point n. (i.e The length of the garden is n).
+    There are n + 1 taps located at points [0, 1, ..., n] in the garden.
+    Given an integer n and an integer array ranges of length n + 1 where ranges[i] (0-indexed) means the i-th tap can
+    water the area [i - ranges[i], i + ranges[i]] if it was open.
+    Return the minimum number of taps that should be open to water the whole garden, If the garden cannot be watered return -1.
+     */
+  public int minTaps(int n, int[] ranges) {
+    int[] maxReach = new int[n + 1];
+
+    for(int i = 0; i < ranges.length; i++) {
+      int s = Math.max(0, i - ranges[i]), e = i + ranges[i];
+      maxReach[s] = e;
+    }
+
+    int tap = 0, currEnd = 0, nextEnd = 0;
+    for(int i = 0; i <= n; i++) {
+      if(i > nextEnd) return -1;
+      if(i > currEnd) {
+        tap++;
+        currEnd = nextEnd;
+      }
+      nextEnd = Math.max(nextEnd, maxReach[i]);
+    }
+    return tap;
+  }
 }
