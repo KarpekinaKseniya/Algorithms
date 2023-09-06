@@ -41,4 +41,36 @@ public class Swap {
         tmp.setNext(head);
         return tmp;
     }
+
+    /*
+        Given the head of a singly linked list and an integer k, split the linked list into k
+        consecutive linked list parts.
+        The length of each part should be as equal as possible: no two parts should have a size
+        differing by more than one. This may lead to some parts being null.
+        The parts should be in the order of occurrence in the input list, and parts occurring earlier
+        should always have a size greater than or equal to parts occurring later.
+        Return an array of the k parts.
+    */
+    public ListNode[] splitListToParts(ListNode head, int k) {
+        ListNode cur = head;
+        ListNode[] answer = new ListNode[k];
+        int ptr = 0, listLength = 0;
+        while (cur != null) {
+            listLength++;
+            cur = cur.getNext();
+        }
+        int extra = listLength % k;
+        int partLength = listLength / k;
+        cur = head;
+        while (cur != null) {
+            answer[ptr++] = cur;
+            int currentLength = partLength - 1 + ((extra-- > 0) ? 1 : 0);
+            for (int i = 0; i < currentLength; i++)
+                cur = cur.getNext();
+            ListNode temp = cur.getNext();
+            cur.setNext(null);
+            cur = temp;
+        }
+        return answer;
+    }
 }
