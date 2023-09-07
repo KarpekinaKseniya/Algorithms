@@ -1,5 +1,6 @@
 package org.example.nodes;
 
+import org.example.nodes.models.ListNode;
 import org.example.nodes.models.TreeNode;
 
 import java.util.Deque;
@@ -73,5 +74,33 @@ public class InvertTree {
             level++;
         }
         return result;
+    }
+
+    /*
+        Given the head of a singly linked list and two integers left and right where left <= right,
+        reverse the nodes of the list from position left to position right, and return the reversed list.
+     */
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummyHead = new ListNode(-1);
+        dummyHead.setNext(head);
+        ListNode prev = dummyHead;
+        ListNode curr = dummyHead.getNext();
+        int i = 1;
+        while (i < left) {
+            prev = curr;
+            curr = curr.getNext();
+            i++;
+        }
+        ListNode firstPartLastNode = prev;
+        while (i <= right) {
+            ListNode tmp = curr.getNext();
+            curr.setNext(prev);
+            prev = curr;
+            curr = tmp;
+            i++;
+        }
+        firstPartLastNode.getNext().setNext(curr);
+        firstPartLastNode.setNext(prev);
+        return dummyHead.getNext();
     }
 }
