@@ -21,4 +21,24 @@ public class PascalTriangle {
         result.add(1);
         return result;
     }
+
+    /*
+        Given an integer numRows, return the first numRows of Pascal's triangle.
+        In Pascal's triangle, each number is the sum of the two numbers directly above it.
+    */
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> level = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+                int toAdd = 1;
+                if (j != 0 && j != i) {
+                    toAdd = result.get(i - 1).get(j - 1) + result.get(i - 1).get(j);
+                }
+                level.add(toAdd);
+            }
+            result.add(level);
+        }
+        return result;
+    }
 }
