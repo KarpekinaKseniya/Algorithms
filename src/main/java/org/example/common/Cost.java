@@ -38,4 +38,19 @@ public class Cost {
         return minCost;
     }
 
+    /*
+        Given n orders, each order consist in pickup and delivery services.
+        Count all valid pickup/delivery possible sequences such that delivery(i)
+            is always after of pickup(i).
+        Since the answer may be too large, return it modulo 10^9 + 7.
+    */
+    public int countOrders(int n) {
+        long[] dp = new long[n + 1];
+        dp[0] = 1;
+        for (int i = 1; i < dp.length; i++) {
+            long k = (long) i * (i + (i - 1));
+            dp[i] = (dp[i - 1] * k) % 100_000_000_7;
+        }
+        return (int) dp[dp.length - 1];
+    }
 }
