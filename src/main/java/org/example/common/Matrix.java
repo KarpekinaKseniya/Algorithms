@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class Matrix {
 
@@ -141,5 +143,39 @@ public class Matrix {
                 dp[i][j] = Math.min(dp[i][j], Math.min(dp[i][j + 1], dp[i + 1][j]) + 1);
 
         return dp;
+    }
+
+    /*
+        You are given an m x n binary matrix mat of 1's (representing soldiers)
+        and 0's (representing civilians). The soldiers are positioned in front of the civilians.
+        That is, all the 1's will appear to the left of all the 0's in each row.
+        A row i is weaker than a row j if one of the following is true:
+            The number of soldiers in row i is less than the number of soldiers in row j.
+            Both rows have the same number of soldiers and i < j.
+        Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.
+    */
+    public int[] kWeakestRows(int[][] mat, int k) {
+        Queue<int[]> minHeap = new PriorityQueue<>((a, b) -> {
+            int strengthA = a[0];
+            int strengthB = b[0];
+            if (strengthA != strengthB) {
+                return Integer.compare(strengthA, strengthB);
+            } else {
+                return Integer.compare(a[1], b[1]);
+            }
+        });
+        for (int i = 0; i < mat.length; i++) {
+            int soldiersCount = Arrays.stream(mat[i]).sum();
+            minHeap.offer(new int[]{-soldiersCount, -i});
+            if (minHeap.size() > k) {
+                minHeap.poll();
+            }
+        }
+        int[] weakestRows = new int[k];
+        int index = k - 1;
+        while (!minHeap.isEmpty()) {
+            weakestRows[index--] = -minHeap.poll()[1];
+        }
+        return weakestRows;
     }
 }
