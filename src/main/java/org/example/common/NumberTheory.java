@@ -1,6 +1,8 @@
 package org.example.common;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class NumberTheory {
 
@@ -189,5 +191,21 @@ public class NumberTheory {
             }
         }
         return result;
+    }
+
+    /*
+        Given an array of integers nums containing n + 1 integers where each integer is in
+        the range [1, n] inclusive.
+        There is only one repeated number in nums, return this repeated number.
+        You must solve the problem without modifying the array nums and uses only constant extra space.
+    */
+    public int findDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (!set.add(num)) {
+                return num;
+            }
+        }
+        return nums.length;
     }
 }
