@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class WorkWithArrays {
 
@@ -638,5 +639,25 @@ class WorkWithArrays {
       nextEnd = Math.max(nextEnd, maxReach[i]);
     }
     return tap;
+  }
+
+  /*
+      Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of
+      the two sorted arrays.
+      The overall run time complexity should be O(log (m+n)).
+  */
+  public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+    int len = nums1.length + nums2.length;
+    List<Integer> list = new ArrayList<>(len);
+    List<Integer> listOfnums1 = Arrays.stream(nums1).boxed().collect(Collectors.toList());
+    List<Integer> listOfnums2 = Arrays.stream(nums2).boxed().collect(Collectors.toList());
+    list.addAll(listOfnums1);
+    list.addAll(listOfnums2);
+    Collections.sort(list);
+    int avarageElem = (int)Math.floor(len/2);
+    if (len == 1) return list.get(0);
+    return ((len % 2 == 0) ?
+            ((list.get(avarageElem) + list.get(avarageElem - 1)) / (double)2) :
+            list.get(avarageElem));
   }
 }
