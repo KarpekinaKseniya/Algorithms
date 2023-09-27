@@ -606,4 +606,36 @@ public class Words {
         }
         return res.toString();
     }
+
+    /*
+        You are given an encoded string s. To decode the string to a tape, the encoded string is
+        read one character at a time and the following steps are taken:
+            If the character read is a letter, that letter is written onto the tape.
+            If the character read is a digit d, the entire current tape is repeatedly written d - 1
+                more times in total.
+        Given an integer k, return the kth letter (1-indexed) in the decoded string.
+    */
+    public String decodeAtIndex(String s, int k) {
+        long decodedLength = 0;
+        for (char character : s.toCharArray()) {
+            if (Character.isDigit(character)) {
+                decodedLength *= (character - '0');
+            } else {
+                decodedLength++;
+            }
+        }
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char currentChar = s.charAt(i);
+            if (Character.isDigit(currentChar)) {
+                decodedLength /= (currentChar - '0');
+                k %= decodedLength;
+            } else {
+                if (k == 0 || decodedLength == k) {
+                    return String.valueOf(currentChar);
+                }
+                decodedLength--;
+            }
+        }
+        return "";
+    }
 }
