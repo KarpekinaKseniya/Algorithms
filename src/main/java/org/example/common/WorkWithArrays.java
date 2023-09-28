@@ -660,4 +660,22 @@ class WorkWithArrays {
             ((list.get(avarageElem) + list.get(avarageElem - 1)) / (double)2) :
             list.get(avarageElem));
   }
+
+  /*
+    Given an integer array nums, move all the even integers at the beginning of the array
+    followed by all the odd integers.
+    Return any array that satisfies this condition.
+  */
+  public int[] sortArrayByParity(int[] nums) {
+    final int len = nums.length;
+    final List<Integer> result = new ArrayList<>(len);
+    for(final int value : nums){
+      if (value % 2 == 0) {
+        result.add(0, value);
+      } else {
+        result.add(value);
+      }
+    }
+    return result.stream().mapToInt(i -> i).toArray();
+  }
 }
