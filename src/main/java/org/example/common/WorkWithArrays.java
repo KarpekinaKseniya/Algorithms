@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 class WorkWithArrays {
@@ -697,5 +698,22 @@ class WorkWithArrays {
       }
     }
     return increasing || decreasing;
+  }
+
+  /*
+      Given an array of n integers nums, a 132 pattern is a subsequence of three integers nums[i],
+      nums[j] and nums[k] such that i < j < k and nums[i] < nums[k] < nums[j].
+      Return true if there is a 132 pattern in nums, otherwise, return false.
+  */
+  public boolean find132pattern(int[] nums) {
+    if(nums == null || nums.length == 0) return false;
+    Stack<Integer> stack = new Stack<>();
+    int s3 = Integer.MIN_VALUE;
+    for(int i = nums.length - 1; i >= 0; i--){
+      if(nums[i] < s3) return true;
+      else while(!stack.isEmpty() && nums[i] > stack.peek()) s3 = stack.pop();
+      stack.push(nums[i]);
+    }
+    return false;
   }
 }
