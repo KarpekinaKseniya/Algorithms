@@ -638,4 +638,26 @@ public class Words {
         }
         return "";
     }
+
+    /*
+        Given a string s, reverse the order of characters in each word within a sentence while still
+        preserving whitespace and initial word order.
+    */
+    public String reverseWords(String s) {
+        String reverseString = "";
+        String[] words = s.split(" ");
+        for (final String word : words) {
+            reverseString += reverse(word) + " ";
+        }
+        return reverseString.trim();
+    }
+
+    private static String reverse(String word) {
+        String result = "";
+        char[] symbols = word.toCharArray();
+        for (int i = symbols.length - 1; i >= 0; i--) {
+            result += symbols[i];
+        }
+        return result;
+    }
 }
