@@ -640,6 +640,40 @@ public class Words {
     }
 
     /*
+        Given two strings s and t, return true if they are equal when both are typed into empty text
+        editors. '#' means a backspace character.
+        Note that after backspacing an empty text, the text will continue empty.
+    */
+    public boolean backspaceCompare(String s, String t) {
+        Stack<Character> st1 = new Stack<>();
+        Stack<Character> st2 = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '#') {
+                if (!st1.isEmpty()) {
+                    st1.pop();
+                }
+            } else {
+                st1.push(s.charAt(i));
+            }
+        }
+        for (int j = 0; j < t.length(); j++) {
+            if (t.charAt(j) == '#') {
+                if (!st2.isEmpty()) {
+                    st2.pop();
+                }
+            } else {
+                st2.push(t.charAt(j));
+            }
+        }
+        while (!st1.isEmpty() && !st2.isEmpty()) {
+            if (st1.pop() != st2.pop()) {
+                return false;
+            }
+        }
+        return st1.isEmpty() && st2.isEmpty();
+    }
+
+    /*
         Given a string s, reverse the order of characters in each word within a sentence while still
         preserving whitespace and initial word order.
     */
