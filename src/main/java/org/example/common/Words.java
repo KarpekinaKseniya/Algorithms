@@ -11,6 +11,8 @@ import java.util.Stack;
 
 public class Words {
 
+    private static final int MOD = 1_000_000_007;
+
     /*
         Given a pattern and a string s, find if s follows the same pattern.
         Here follow means a full match,
@@ -249,10 +251,9 @@ public class Words {
             the conditions above are met.
 
         Return the number of ways to form target from words. Since the answer may be too large,
-        return it modulo 109 + 7.
+        return it modulo 10^9 + 7.
     */
     public int numWays(final String[] words, final String target) {
-        final int mod = 1000000007;
         final int n = words[0].length();
         int[][] freq = new int[n][26];
         for (final String word : words) {
@@ -267,7 +268,7 @@ public class Words {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= target.length(); j++) {
                 final int charCount = freq[i - 1][target.charAt(j - 1) - 'a'];
-                dp[i][j] = (dp[i - 1][j] + (int) ((long) charCount * dp[i - 1][j - 1] % mod)) % mod;
+                dp[i][j] = (dp[i - 1][j] + (int) ((long) charCount * dp[i - 1][j - 1] % MOD)) % MOD;
             }
         }
 
@@ -671,6 +672,24 @@ public class Words {
             }
         }
         return st1.isEmpty() && st2.isEmpty();
+    }
+
+    /*
+        Given a string s, return the number of homogenous substrings of s.
+        Since the answer may be too large, return it modulo 10^9 + 7.
+        A string is homogenous if all the characters of the string are the same.
+        A substring is a contiguous sequence of characters within a string.
+    */
+    public int countHomogenous(String s) {
+        int res = 1;
+        for (int i = 1, j = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
+                res = (res + ++j) % MOD;
+            } else {
+                res = (res + (j = 1)) % MOD;
+            }
+        }
+        return res;
     }
 
     /*
