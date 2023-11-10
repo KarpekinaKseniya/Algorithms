@@ -789,4 +789,47 @@ class WorkWithArrays {
     } while(i!=target.length);
     return res;
   }
+
+  /*
+      There is an integer array nums that consists of n unique elements, but you have forgotten it.
+      However, you do remember every pair of adjacent elements in nums.
+      You are given a 2D integer array adjacentPairs of size n - 1 where each adjacentPairs[i] = [ui, vi]
+      indicates that the elements ui and vi are adjacent in nums.
+      It is guaranteed that every adjacent pair of elements nums[i] and nums[i+1] will exist in
+      adjacentPairs, either as [nums[i], nums[i+1]] or [nums[i+1], nums[i]]. The pairs can appear
+      in any order.
+      Return the original array nums. If there are multiple solutions, return any of them.
+  */
+  public int[] restoreArray(int[][] adjacentPairs) {
+    final HashMap<Integer,List<Integer>> map = new HashMap<>();
+    for(int[] pair : adjacentPairs) {
+      List<Integer> list1 = map.getOrDefault(pair[0], new ArrayList<>());
+      List<Integer> list2 = map.getOrDefault(pair[1], new ArrayList<>());
+      list1.add(pair[1]);
+      map.put(pair[0], list1);
+      list2.add(pair[0]);
+      map.put(pair[1], list2);
+    }
+    int st = 0;
+    for(final int v : map.keySet()) {
+      if(map.get(v).size()==1) {
+        st = v;
+        break;
+      }
+    }
+    HashSet<Integer> set = new HashSet<>();
+    int[] ans = new int[adjacentPairs.length+1];
+    for(int i=0; i<ans.length; i++) {
+      ans[i] = st;
+      set.add(st);
+      List<Integer> list = map.get(st);
+      for(final Integer integer : list){
+        if(!set.contains(integer)) {
+          st = integer;
+          break;
+        }
+      }
+    }
+    return ans;
+  }
 }
