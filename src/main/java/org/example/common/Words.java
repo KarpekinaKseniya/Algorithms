@@ -693,6 +693,32 @@ public class Words {
     }
 
     /*
+        Given a string s, return the number of unique palindromes of length three that are a subsequence
+        of s.
+        Note that even if there are multiple ways to obtain the same subsequence, it is still only
+        counted once.
+        A palindrome is a string that reads the same forwards and backwards.
+        A subsequence of a string is a new string generated from the original string with some
+        characters (can be none) deleted without changing the relative order of the remaining characters.
+        For example, "ace" is a subsequence of "abcde".
+    */
+    public int countPalindromicSubsequence(String s) {
+        int count = 0;
+        for (int i = 0; i < 26; i++) {
+            char ch = (char) (i + 'a');
+            int start = s.indexOf(ch);
+            int last = s.lastIndexOf(ch);
+            if (last == -1) continue;
+            Set<Character> uniqChars = new HashSet<>();
+            for (int j = start + 1; j < last; j++) {
+                uniqChars.add(s.charAt(j));
+            }
+            count += uniqChars.size();
+        }
+        return count;
+    }
+
+    /*
         Given a string s, reverse the order of characters in each word within a sentence while still
         preserving whitespace and initial word order.
     */
