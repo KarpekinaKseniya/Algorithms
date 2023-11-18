@@ -873,4 +873,33 @@ class WorkWithArrays {
     return max;
   }
 
+  /*
+      The frequency of an element is the number of times it occurs in an array.
+      You are given an integer array nums and an integer k. In one operation, you can choose
+      an index of nums and increment the element at that index by 1.
+      Return the maximum possible frequency of an element after performing at most k operations.
+  */
+  public int maxFrequency(int[] nums, int k) {
+    Arrays.sort(nums);
+    for(int i=0; i<nums.length/2; i++) {
+      int end = nums[nums.length-1-i];
+      nums[nums.length-1-i] = nums[i];
+      nums[i] = end;
+    }
+    int left = 0, right = 0, maxFrequency = 1;
+    while (right < nums.length) {
+      if (nums[left] - nums[right] <= k) {
+        k -= nums[left] - nums[right];
+        maxFrequency = Math.max(maxFrequency, right - left + 1);
+        right++;
+      } else {
+        left++;
+        int cashback = (nums[left-1] - nums[left]);
+        int currentWindowSize = (right - left);
+        k += cashback * currentWindowSize;
+      }
+    }
+    return maxFrequency;
+  }
+
 }
