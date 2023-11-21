@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 
 class WorkWithArrays {
 
+    private static final int MOD = 1_000_000_007;
+
     /*
     Given an array nums of size n, return the majority element.
 
@@ -921,6 +923,37 @@ class WorkWithArrays {
         curr++;
       }
       res = res + curr;
+    }
+    return res;
+  }
+
+  /*
+      You are given an array nums that consists of non-negative integers. Let us define rev(x) as
+      the reverse of the non-negative integer x. For example, rev(123) = 321, and rev(120) = 21.
+      A pair of indices (i, j) is nice if it satisfies all of the following conditions:
+        0 <= i < j < nums.length
+        nums[i] + rev(nums[j]) == nums[j] + rev(nums[i])
+      Return the number of nice pairs of indices. Since that number can be too large, return
+      it modulo 10^9 + 7.
+  */
+  public int countNicePairs(int[] nums) {
+    int n = nums.length;
+    Map<Integer, Integer> map = new HashMap<>();
+    int res = 0;
+    for (int j = 0; j < n; j++) {
+      nums[j] -= rev(nums[j]);
+      int count = map.getOrDefault(nums[j], 0);
+      res = (res + count) % MOD;
+      map.put(nums[j], count + 1);
+    }
+    return res;
+  }
+
+  private int rev(int x) {
+    int res = 0;
+    while (x != 0) {
+      res = res * 10 + (x % 10);
+      x /= 10;
     }
     return res;
   }
