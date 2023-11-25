@@ -1002,4 +1002,28 @@ class WorkWithArrays {
     return ans;
   }
 
+  /*
+      You are given an integer array nums sorted in non-decreasing order.
+      Build and return an integer array result with the same length as nums such that result[i] is equal
+      to the summation of absolute differences between nums[i] and all the other elements in the array.
+      In other words, result[i] is equal to sum(|nums[i]-nums[j]|) where 0 <= j < nums.length and
+      j != i (0-indexed).
+  */
+  public int[] getSumAbsoluteDifferences(int[] nums) {
+    int size = nums.length;
+    int[] pre_fix = new int[size];
+    for(int i = size - 1; i >= 0; i--){
+      if(i == size - 1){
+        pre_fix[i] = nums[i];
+      }
+      else pre_fix[i] = nums[i] + pre_fix[i + 1];
+    }
+    int[] ans = new int[size];
+    for(int i = 0; i < size; i++){
+      int left = Math.abs(i * nums[i] - (pre_fix[0] - pre_fix[i]));
+      int right = Math.abs((size-i-1) * nums[i] - (pre_fix[i] - nums[i]));
+      ans[i] = left + right;
+    }
+    return ans;
+  }
 }
