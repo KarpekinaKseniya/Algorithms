@@ -3,6 +3,7 @@ package org.example.nodes;
 import org.example.nodes.models.ListNode;
 import org.example.nodes.models.TreeNode;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,5 +103,23 @@ public class InvertTree {
         firstPartLastNode.getNext().setNext(curr);
         firstPartLastNode.setNext(prev);
         return dummyHead.getNext();
+    }
+
+    /*
+        Given the root of a binary tree, return the inorder traversal of its nodes' values.
+    */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        if (root == null) return list;
+        return inorderTraversal(root, list);
+    }
+
+    private List<Integer> inorderTraversal(TreeNode root, List<Integer> list) {
+        if (root != null) {
+            inorderTraversal(root.getLeft(), list);
+            list.add(root.getVal());
+            inorderTraversal(root.getRight(), list);
+        }
+        return list;
     }
 }
