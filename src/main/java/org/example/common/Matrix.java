@@ -195,4 +195,31 @@ public class Matrix {
         }
         return arr;
     }
+
+    /*
+        Given an m x n binary matrix mat, return the number of special positions in mat.
+        A position (i, j) is called special if mat[i][j] == 1 and all other elements in row i and
+        column j are 0 (rows and columns are 0-indexed).
+    */
+    public int numSpecial(int[][] mat) {
+        var m = mat.length;
+        var n = mat[0].length;
+        var rows = new int[m];
+        var cols = new int[n];
+        for (var i = 0; i < m; i++) {
+            for (var j = 0; j < n; j++) {
+                rows[i] += mat[i][j];
+                cols[j] += mat[i][j];
+            }
+        }
+        var ans = 0;
+        for (var i = 0; i < m; i++) {
+            for (var j = 0; j < n; j++) {
+                if (mat[i][j] == 1 && rows[i] == 1 && cols[j] == 1) {
+                    ans++;
+                }
+            }
+        }
+        return ans;
+    }
 }
