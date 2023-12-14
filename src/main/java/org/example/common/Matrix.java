@@ -222,4 +222,36 @@ public class Matrix {
         }
         return ans;
     }
+
+    /*
+        You are given a 0-indexed m x n binary matrix grid.
+        A 0-indexed m x n difference matrix diff is created with the following procedure:
+            Let the number of ones in the ith row be onesRowi.
+            Let the number of ones in the jth column be onesColj.
+            Let the number of zeros in the ith row be zerosRowi.
+            Let the number of zeros in the jth column be zerosColj.
+            diff[i][j] = onesRowi + onesColj - zerosRowi - zerosColj
+        Return the difference matrix diff.
+    */
+    public int[][] onesMinusZeros(int[][] grid) {
+        int[] rowdiff = new int[grid.length];
+        int[] coldiff = new int[grid[0].length];
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    rowdiff[i]++;
+                    coldiff[j]++;
+                } else {
+                    rowdiff[i]--;
+                    coldiff[j]--;
+                }
+            }
+        }
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j] = rowdiff[i] + coldiff[j];
+            }
+        }
+        return grid;
+    }
 }
