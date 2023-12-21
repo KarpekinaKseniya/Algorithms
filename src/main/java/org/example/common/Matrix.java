@@ -254,4 +254,24 @@ public class Matrix {
         }
         return grid;
     }
+
+    /*
+        Given n points on a 2D plane where points[i] = [xi, yi], Return the widest vertical area
+        between two points such that no points are inside the area.
+        A vertical area is an area of fixed-width extending infinitely along the y-axis (i.e., infinite
+        height). The widest vertical area is the one with the maximum width.
+        Note that points on the edge of a vertical area are not considered included in the area.
+    */
+    public int maxWidthOfVerticalArea(int[][] points) {
+        int[] arr = new int[points.length];
+        for (int i = 0; i < points.length; i++) {
+            arr[i] = points[i][0];
+        }
+        Arrays.sort(arr);
+        int res = 0;
+        for (int i = 1; i < arr.length; i++) {
+            res = Math.max(res, arr[i] - arr[i - 1]);
+        }
+        return res;
+    }
 }
