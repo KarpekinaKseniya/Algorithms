@@ -810,6 +810,30 @@ public class Words {
     }
 
     /*
+        Given a string s, return the length of the longest substring between two equal characters,
+        excluding the two characters. If there is no such substring return -1.
+        A substring is a contiguous sequence of characters within a string.
+    */
+    public int maxLengthBetweenEqualCharacters(String s) {
+        int x = 0;
+        int y = 0;
+        int res = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j < s.length(); j++) {
+                y++;
+                if (s.charAt(j) == s.charAt(i)) {
+                    res = Math.max(res, y - 1);
+                    x = 1;
+                }
+            }
+            y = 0;
+            if (res >= s.length() - i) break;
+        }
+        if (x == 0) return -1;
+        else return res;
+    }
+
+    /*
         Given a string s, reverse the order of characters in each word within a sentence while still
         preserving whitespace and initial word order.
     */
